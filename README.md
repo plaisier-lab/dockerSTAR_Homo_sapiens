@@ -13,3 +13,13 @@ Source is compiled to executables and the location of the executables is added t
 
 # Homo sapiens GRCh38.p12 genome indexing
 The files for the GRCh38.p12 genome are downloaded from [GENCODE](gencodegenes.org/human), ungzipped, and indexed into the folder `/index`.
+
+# Build image using
+
+```docker build -t star_2_7_1a_grch38_p21 .```
+
+# Using the image with a mounted volume with your fastq files
+```docker run -v /path/to/your/fastq/files:/fastq star_2_7_1a_grch38_p21```
+
+# Running STAR on the image
+###TODO
