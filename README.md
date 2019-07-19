@@ -19,7 +19,7 @@ The files for the GRCh38.p12 genome are downloaded from [GENCODE](gencodegenes.o
 ```docker build -t star_2_7_1a_grch38_p21 .```
 
 # Using the image with a mounted volume with your fastq files
-```docker run -v /path/to/your/fastq/files:/fastq star_2_7_1a_grch38_p21```
+```docker run -it -v /path/to/your/fastq/files:/fastq star_2_7_1a_grch38_p21 /bin/bash```
 
 # Running STAR on the image
 ###TODO
