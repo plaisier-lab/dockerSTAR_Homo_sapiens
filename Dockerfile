@@ -36,3 +36,5 @@ RUN gunzip *.gz
 RUN mkdir /index
 RUN STAR --runThreadN 12 --runMode genomeGenerate --genomeDir /index --genomeFastaFiles GRCh38.primary_assembly.genome.fa --sjdbGTFfile gencode.v31.primary_assembly.annotation.gtf --sjdbOverhang 100
 
+# Get rid of sequence information to reduce image size
+RUN rm -rf /GRCh38.p12
