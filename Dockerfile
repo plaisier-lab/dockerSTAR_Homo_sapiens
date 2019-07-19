@@ -34,17 +34,22 @@ RUN mkdir /GRCh38.p12
 WORKDIR /GRCh38.p12
 RUN wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_31/gencode.v31.primary_assembly.annotation.gtf.gz
 RUN wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_31/GRCh38.primary_assembly.genome.fa.gz
-RUN gunzip *.gz
+RUN pigz -d *.gz
 RUN mkdir /index
 RUN STAR --runThreadN 12 --runMode genomeGenerate --genomeDir /index --genomeFastaFiles GRCh38.primary_assembly.genome.fa --sjdbGTFfile gencode.v31.primary_assembly.annotation.gtf --sjdbOverhang 100
 
 WORKDIR /
 
 # Get rid of sequence information to reduce image size
-RUN rm -rf /GRCh38.p12
+RUN rm -rf /GRCh38.p12/GRCh38.primary_assembly.genome.fa
 
 # Install cutadapt
 RUN pip3 install cutadapt
 
 # Install ht-seq
 RUN pip3 install HTSeq
+
+# Copy in python scripts to conduct analysis
+RUN mkdir /pipeline
+COPY pipeline.py /pipeline
+COPY manifest.csv /pipeline
