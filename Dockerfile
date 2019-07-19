@@ -9,9 +9,11 @@ RUN apt-get install --yes \
  apt-utils \
  zlib1g-dev \
  vim-common \
- wget
-
-RUN apt-get install -y git
+ wget \
+ python3 \
+ python3-pip \
+ git \
+ pigz
 
 # Get latest STAR source from releases
 # Alternatively, get STAR source using git
@@ -36,5 +38,13 @@ RUN gunzip *.gz
 RUN mkdir /index
 RUN STAR --runThreadN 12 --runMode genomeGenerate --genomeDir /index --genomeFastaFiles GRCh38.primary_assembly.genome.fa --sjdbGTFfile gencode.v31.primary_assembly.annotation.gtf --sjdbOverhang 100
 
+WORKDIR /
+
 # Get rid of sequence information to reduce image size
 RUN rm -rf /GRCh38.p12
+
+# Install cutadapt
+RUN pip3 install cutadapt
+
+# Install ht-seq
+RUN pip3 install HTSeq
