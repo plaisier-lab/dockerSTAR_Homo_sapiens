@@ -7,7 +7,7 @@ The latest clean ubuntu base is used as the base for the docker image
 # Latest STAR installation
 The latest STAR is downloaded from git as source code and compiled using the command:
 
-'''git clone https://github.com/alexdobin/STAR.git'''
+```git clone https://github.com/alexdobin/STAR.git```
 
 Source is compiled to executables and the location of the executables is added to the PATH.
 
