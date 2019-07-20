@@ -44,17 +44,18 @@ gexpMatrix = {} # gexpMatrix[transcript][sample] = {'coverage':<>, 'FPKM':<>}
 output = {}
 outOrder = []
 for s1 in samples:
-    if not os.path.exists('/fastq/output/'+s1+'_1_trimmed.fq.gz'):
+    if not os.path.exists('/fastq/raw_data/'+s1+'_1_trimmed.fq.gz'):
         # Second remove adaptor sequences
         cmd = ['cutadapt',
                 '-a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC',
                 '-A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT',
+                '-j 12',
                 '-m 15',
                 '--max-n=5',
-                '-o fastq/'+s1+'_1_trimmed.fq.gz',
-                '-p /fastq/'+s1+'_2_trimmed.fq.gz',
-                '/fastq/raw_data/'+s1'_1.fq.gz',
-                '/fastq/raw_data/'+s1+'_2.fq.gz'
+                '-o /fastq/raw_data/'+s1+'_1_trimmed.fq.gz',
+                '-p /fastq/raw_data/'+s1+'_2_trimmed.fq.gz',
+                '/fastq/raw_data/'+s1+'_1.fq.gz',
+                '/fastq/raw_data/'+s1+'_2.fq.gz']
         print('Running = '+' '.join(cmd))
         cutadaptProc = Popen(' '.join(cmd), shell=True,stdout=PIPE,stderr=PIPE)
         cutadaptProc.communicate()
@@ -81,17 +82,17 @@ for s1 in samples:
                '--mode=intersection-strict',
                '--order=pos',
                '--stranded=no',
-               'output/'+s1+'Aligned.out.sam',
-               '/GRCh38.p21/gencode.v31.primary_assembly.annotation.gtf',
+               '/fastq/output/'+s1+'Aligned.out.sam',
+               '/GRCh38.p12/gencode.v31.primary_assembly.annotation.gtf',
                '>',
-               'output/'+s1+'Aligned.out.counts']
+               '/fastq/output/'+s1+'Aligned.out.counts']
         print('Running = '+' '.join(cmd))
         htseqProc = Popen(' '.join(cmd), shell=True,stdout=PIPE,stderr=PIPE)
         htseqProc.communicate()
 
         # gzip Aligned.out.sam file
         print('Gzipping '+s1)
-        gzipProc = Popen('pigz output/'+s1+'Aligned.out.sam', shell=True,stdout=PIPE) #,stderr=errOut)
+        gzipProc = Popen('pigz /fastq/output/'+s1+'Aligned.out.sam', shell=True,stdout=PIPE) #,stderr=errOut)
         gzipProc.communicate()
 
         # Done
@@ -108,11 +109,10 @@ for s1 in samples:
                 gexpMatrix[splitUp[0]] = {}
             gexpMatrix[splitUp[0]][s1] = splitUp[1]
 
-    with open('output/'+s1+'Log.final.out','r') as inFile:
+    with open('/fastq/output/'+s1+'Log.final.out','r') as inFile:
         inLines = [i.strip() for i in inFile.readlines() if i]
         for inLine in inLines:
             if not inLine.find('\t')==-1:
-                print inLine
                 splitUp = [i.strip() for i in inLine.split('\t')]
                 key1 = splitUp[0].rstrip(' |').replace(',',' ')
                 if not key1 in output:
