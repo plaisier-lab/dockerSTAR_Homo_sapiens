@@ -22,4 +22,4 @@ The files for the GRCh38.p12 genome are downloaded from [GENCODE](gencodegenes.o
 ```docker run -it -v /path/to/your/fastq/files:/fastq star_2_7_1a_grch38_p21 /bin/bash```
 
 # Running STAR on the image
-###TODO
+We provide an example run with paired-end Illumina sequences in the pipeline.py file. This pipeline will run trim adapter sequences using `cutadapt`, align the sequences using `STAR`, and count the reads mapping to transcripts using `htseq-count`. The sample identities are put into the manifest.csv file, and are used to identify the samples to run in the pipeline.
