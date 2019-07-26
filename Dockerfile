@@ -36,7 +36,7 @@ RUN wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_31/genc
 RUN wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_31/GRCh38.primary_assembly.genome.fa.gz
 RUN pigz -d *.gz
 RUN mkdir /index
-RUN STAR --runThreadN 12 --runMode genomeGenerate --genomeDir /index --genomeFastaFiles GRCh38.primary_assembly.genome.fa --sjdbGTFfile gencode.v31.primary_assembly.annotation.gtf --sjdbOverhang 100
+RUN STAR --runThreadN 1 --runMode genomeGenerate --genomeDir /index --genomeFastaFiles GRCh38.primary_assembly.genome.fa --sjdbGTFfile gencode.v31.primary_assembly.annotation.gtf --sjdbOverhang 100
 
 WORKDIR /
 
