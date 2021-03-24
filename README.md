@@ -11,8 +11,8 @@ The latest STAR is downloaded from git as source code and compiled using the com
 
 Source is compiled to executables and the location of the executables is added to the PATH.
 
-## Homo sapiens GRCh38.p12 genome indexing
-The files for the GRCh38.p12 genome are downloaded from [GENCODE](gencodegenes.org/human), ungzipped, and indexed into the folder `/index`.
+## Homo sapiens GRCh38.p21 genome indexing
+The files for the GRCh38.p21 genome are downloaded from [GENCODE](gencodegenes.org/human), ungzipped, and indexed into the folder `/index`.
 
 ## Build image using
 
