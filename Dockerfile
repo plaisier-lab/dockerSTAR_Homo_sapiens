@@ -30,8 +30,8 @@ ENV PATH /STAR/source:$PATH
 WORKDIR /
 
 # Build index for human alignment
-RUN mkdir /GRCh38.p12
-WORKDIR /GRCh38.p12
+RUN mkdir /GRCh38.p31
+WORKDIR /GRCh38.p31
 RUN wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_31/gencode.v31.primary_assembly.annotation.gtf.gz
 RUN wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_31/GRCh38.primary_assembly.genome.fa.gz
 RUN pigz -d *.gz
@@ -41,7 +41,7 @@ RUN STAR --runThreadN 1 --runMode genomeGenerate --genomeDir /index --genomeFast
 WORKDIR /
 
 # Get rid of sequence information to reduce image size
-RUN rm -rf /GRCh38.p12/GRCh38.primary_assembly.genome.fa
+RUN rm -rf /GRCh38.p31/GRCh38.primary_assembly.genome.fa
 
 # Install cutadapt
 RUN pip3 install cutadapt
