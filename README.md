@@ -22,6 +22,7 @@ The files for the GRCh38.p31 genome are downloaded from [GENCODE](gencodegenes.o
 
 ## Pull image from dockerhub.com
 (https://hub.docker.com/r/cplaisier/star_2_7_1a_grch38_p21(https://hub.docker.com/r/cplaisier/star_2_7_1a_grch38_p21))
+
 ```docker pull cplaisier/star_2_7_1a_grch38_p21```
 
 ## Using the image with a mounted volume with your fastq files
